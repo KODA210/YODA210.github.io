@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>视觉方案对比 · 慢慢来的运营</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:#EFEEEA;color:#2A2723;-webkit-font-smoothing:antialiased}
+.doc{max-width:700px;margin:0 auto;padding:30px 18px 64px}
+.doc-head{text-align:center;margin-bottom:14px}
+.doc-head h1{font-size:21px;letter-spacing:1px}
+.doc-head p{font-size:13px;color:#7B7466;margin-top:8px;line-height:1.7}
+.notice{background:#FFF8E6;border:1px solid #EFDFAC;color:#8A6D2F;border-radius:12px;padding:11px 14px;font-size:12.5px;line-height:1.8;margin:16px 0 4px;text-align:left}
+.notice b{font-weight:700}
+.tabs{position:sticky;top:0;z-index:20;display:flex;gap:8px;padding:12px 0;background:rgba(239,238,234,.94);backdrop-filter:blur(6px)}
+.tab{flex:1;border:1.5px solid #D9D5CB;background:#fff;border-radius:12px;padding:9px 4px;font-size:13.5px;font-weight:700;color:#6E6759;cursor:pointer;transition:all .18s;line-height:1.3}
+.tab small{display:block;font-weight:400;font-size:10px;color:#9A9284;margin-top:3px}
+.tab.on{background:#2A2723;border-color:#2A2723;color:#fff}
+.tab.on small{color:#C9C3B6}
+.scheme{display:none;animation:fade .25s ease}
+.scheme.on{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+.phone{max-width:340px;margin:18px auto 4px;background:#fff;border-radius:34px;border:9px solid #23211E;box-shadow:0 24px 60px rgba(30,25,20,.22);overflow:hidden}
+.pbadge{display:block;text-align:center;font-size:10px;padding:7px 10px;line-height:1.5;letter-spacing:.5px}
+
+/* ===== 手机内部通用骨架 ===== */
+.hero{padding:26px 20px 22px}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.chips span{font-size:10.5px;padding:4px 10px;border-radius:999px;letter-spacing:.5px}
+.hero h2{font-size:29px;letter-spacing:1px;margin-bottom:5px;font-weight:700}
+.sub{font-size:12px;margin-bottom:16px}
+.ph{font-size:12px;line-height:1.8;padding:12px 14px;border-radius:12px;margin-bottom:18px}
+.btns{display:flex;gap:10px}
+.btns a{flex:1;text-align:center;font-size:13px;padding:11px 0;cursor:pointer;font-weight:700;text-decoration:none}
+.sect{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;letter-spacing:2px;padding:20px 20px 10px}
+.sect i{display:block}
+.card{margin:0 20px 12px;border-radius:16px;padding:13px 16px}
+.card em{display:block;font-style:normal;font-size:9px;letter-spacing:3px;margin-bottom:5px}
+.card b{display:block;font-size:14px;margin-bottom:5px;font-weight:700}
+.card span{font-size:10.5px;display:block}
+.ti{padding:10px 20px 2px 34px;border-left:2px solid #DDD;margin-left:22px;margin-right:20px;margin-bottom:4px}
+.ti b{display:block;font-size:12.5px;margin-bottom:3px;font-weight:700}
+.ti span{font-size:11px;line-height:1.6;display:block}
+.tl{padding-bottom:8px}
+.cta{padding:26px 20px 30px;text-align:center}
+.cta .big{display:block;border-radius:999px;font-size:14px;font-weight:700;padding:13px 0}
+.cta p{font-size:10px;margin-top:10px;letter-spacing:.5px}
+
+/* ===== 方案 A 暖陶 ===== */
+.a{background:#FAF5EC;color:#3A3227;font-family:"Noto Serif SC","Source Han Serif SC","Songti SC","STSong","SimSun",serif}
+.pb-a{background:#F3EADB;color:#8A6E52}
+.a .chips span{background:#F1E7D6;color:#96794F}
+.a .hero h2{color:#46372A}
+.a .sub{color:#A5927A}
+.a .ph{border:1.5px dashed #D6C6A8;color:#9C8A6E}
+.a .btns a.pri{background:#BE6A4C;color:#FFF9F2;border-radius:999px}
+.a .btns a.sec{border:1.5px solid #9DAE8E;color:#5F7050;border-radius:999px}
+.a .sect i{width:14px;height:3px;background:#BE6A4C;border-radius:2px}
+.a .sect{color:#7A5E3F}
+.a .card{background:#FFFDF8;box-shadow:0 6px 18px rgba(120,90,60,.08)}
+.a .card em{color:#C89A7F}
+.a .card b{color:#46372A}
+.a .card span{color:#B3A48C}
+.a .ti{border-color:#E7D9C2}
+.a .ti b{color:#6B5843}
+.a .ti span{color:#A5977F}
+.a .cta .big{background:#BE6A4C;color:#FFF9F2}
+.a .cta p{color:#B3A48C}
+
+/* ===== 方案 B 紫雾 ===== */
+.b{background:#F6F4FA;color:#332B47}
+.pb-b{background:#EDE8F8;color:#7263AB}
+.b .hero{background:linear-gradient(180deg,#EBE4F9 0%,#F6F4FA 100%)}
+.b .chips span{background:#E9E2F7;color:#7263AB}
+.b .hero h2{color:#3A2F55}
+.b .sub{color:#9A8FB8}
+.b .ph{background:#F0EBFA;border:1.5px dashed #CBBCE9;color:#7E6FA8;border-radius:12px}
+.b .btns a.pri{background:#7C5CBF;color:#fff;border-radius:14px}
+.b .btns a.sec{background:#ECE6F9;color:#6F5FA6;border-radius:14px}
+.b .sect i{width:7px;height:7px;background:#7C5CBF;border-radius:50%}
+.b .sect{color:#6B5E93}
+.b .card{background:#FFFFFF;border:1px solid #E6E0F3}
+.b .card em{color:#B9A9E0}
+.b .card b{color:#3A2F55}
+.b .card span{color:#A79CC4}
+.b .ti{border-color:#DCD3EE}
+.b .ti b{color:#5C4F82}
+.b .ti span{color:#9C92B8}
+.b .cta .big{background:#7C5CBF;color:#fff;border-radius:16px}
+.b .cta p{color:#A79CC4}
+
+/* ===== 方案 C 编辑部 ===== */
+.c{background:#FBFAF6;color:#1A1712;font-family:"Noto Serif SC","Source Han Serif SC","Songti SC","STSong","SimSun",serif}
+.pb-c{background:#EDEBE2;color:#8A8578}
+.c .hero::after{content:"";display:block;height:2px;border-top:1px solid #1A1712;border-bottom:1px solid #1A1712;margin-top:22px}
+.c .chips span{border:1px solid #C9C4B4;color:#6B675C;letter-spacing:2px;border-radius:0;background:none}
+.c .hero h2{color:#17150F;letter-spacing:3px;font-size:30px}
+.c .sub{color:#8A8578;letter-spacing:1px}
+.c .ph{border-left:2px solid #2A5C4D;color:#7B776C;border-radius:0;padding:2px 0 2px 12px;background:none}
+.c .btns a.pri{background:#17150F;color:#F5F2E8;border-radius:3px;letter-spacing:2px}
+.c .btns a.sec{border:1px solid #17150F;color:#17150F;border-radius:3px;letter-spacing:2px}
+.c .sect i{width:22px;height:1px;background:#2A5C4D}
+.c .sect{color:#2A5C4D;font-size:11px;letter-spacing:4px}
+.c .card{background:none;border-radius:0;margin:0 20px;padding:12px 2px;border-bottom:1px solid #E3DFD0}
+.c .card em{color:#2A5C4D}
+.c .card b{color:#17150F;font-size:15px;letter-spacing:1px}
+.c .card span{color:#8A8578;letter-spacing:1px}
+.c .ti{border-color:#E3DFD0}
+.c .ti b{color:#17150F}
+.c .ti span{color:#8A8578}
+.c .cta .big{background:#17150F;color:#F5F2E8;border-radius:3px;letter-spacing:2px}
+.c .cta p{color:#8A8578}
+
+/* ===== 说明区 ===== */
+.swatch-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:16px}
+.sw{width:62px}
+.sw i{display:block;height:34px;border-radius:9px;border:1px solid rgba(0,0,0,.08)}
+.sw span{display:block;text-align:center;font-size:9px;color:#8B8375;margin-top:4px;letter-spacing:.3px}
+.explain{max-width:340px;margin:14px auto 0;background:#fff;border-radius:14px;border:1px solid #E3DFD5;padding:14px 16px}
+.explain h3{font-size:13.5px;margin-bottom:7px}
+.explain p{font-size:12.5px;color:#6E6759;line-height:1.85}
+
+.foot-box{max-width:640px;margin:34px auto 0;background:#fff;border-radius:16px;border:1px solid #E3DFD5;padding:18px 20px}
+.foot-box h3{font-size:14px;margin-bottom:10px}
+.foot-box ol{padding-left:20px}
+.foot-box li{font-size:12.5px;color:#5C564B;line-height:1.9;margin-bottom:4px}
+.foot-box .muted{font-size:11.5px;color:#9A9284;margin-top:10px;line-height:1.7}
+</style>
+</head>
+<body>
+<div class="doc">
+
+  <div class="doc-head">
+    <h1>视觉方案对比 · 个人品牌网站</h1>
+    <p>同一套内容骨架，三种气质。建议在手机上打开看效果——你的访客九成用手机。</p>
+  </div>
+
+  <div class="notice"><b>规矩提醒：</b>以下手机预览中的文案全部是占位示意。我不代写任何经历、数据、评价；定稿内容只来自你亲口说的事实，拿不准的一律标【待确认】。</div>
+
+  <div class="tabs">
+    <div class="tab on">A 暖陶<small>治愈 · 慢节奏</small></div>
+    <div class="tab">B 紫雾<small>延续熟悉审美</small></div>
+    <div class="tab">C 编辑部<small>突出文字内容</small></div>
+  </div>
+
+  <!-- ========== 方案 A ========== -->
+  <section class="scheme on">
+    <div class="phone">
+      <span class="pbadge pb-a">版式示意 · 文案均为占位，最终以你确认的事实为准</span>
+      <div class="a">
+        <div class="hero">
+          <div class="chips"><span>社群运营</span><span>心理成长</span><span>公众号主理人</span></div>
+          <h2>慢慢来的运营</h2>
+          <p class="sub">小明的个人品牌页</p>
+          <div class="ph">一句话定位会放在这里——内容等你亲口告诉我，我不代写。</div>
+          <div class="btns"><a class="pri">关注公众号</a><a class="sec">加微信</a></div>
+        </div>
+        <div class="sect"><i></i>最近在写</div>
+        <div class="card"><em>01</em><b>精选文章标题：等你提供</b><span>阅读数据：只按你给的口径展示</span></div>
+        <div class="card"><em>02</em><b>精选文章标题：等你提供</b><span>阅读数据：只按你给的口径展示</span></div>
+        <div class="sect"><i></i>经历</div>
+        <div class="tl">
+          <div class="ti"><b>时间段 · 角色：待你口述</b><span>做了什么 · 结果如何：待你口述</span></div>
+          <div class="ti"><b>时间段 · 角色：待你口述</b><span>做了什么 · 结果如何：待你口述</span></div>
+        </div>
+        <div class="cta"><a class="big">关注「慢慢来的运营」</a><p>微信号 · 二维码：待你提供后放这里</p></div>
+      </div>
+    </div>
+    <div class="swatch-row">
+      <div class="sw"><i style="background:#FAF5EC"></i><span>奶油底<br>#FAF5EC</span></div>
+      <div class="sw"><i style="background:#BE6A4C"></i><span>陶土主色<br>#BE6A4C</span></div>
+      <div class="sw"><i style="background:#9DAE8E"></i><span>鼠尾草辅<br>#9DAE8E</span></div>
+      <div class="sw"><i style="background:#46372A"></i><span>深棕文字<br>#46372A</span></div>
+    </div>
+    <div class="explain"><h3>方案 A · 暖陶「慢慢来」</h3><p>奶油底 + 陶土橙 + 鼠尾草绿，衬线标题、大圆角卡片、大量留白。气质：治愈、慢、有手作感，和「慢慢来」这个品牌名最贴。适合把网站做成一页安静的自我介绍。</p></div>
+  </section>
+
+  <!-- ========== 方案 B ========== -->
+  <section class="scheme">
+    <div class="phone">
+      <span class="pbadge pb-b">版式示意 · 文案均为占位，最终以你确认的事实为准</span>
+      <div class="b">
+        <div class="hero">
+          <div class="chips"><span>社群运营</span><span>心理成长</span><span>公众号主理人</span></div>
+          <h2>慢慢来的运营</h2>
+          <p class="sub">小明的个人品牌页</p>
+          <div class="ph">一句话定位会放在这里——内容等你亲口告诉我，我不代写。</div>
+          <div class="btns"><a class="pri">关注公众号</a><a class="sec">加微信</a></div>
+        </div>
+        <div class="sect"><i></i>最近在写</div>
+        <div class="card"><em>01</em><b>精选文章标题：等你提供</b><span>阅读数据：只按你给的口径展示</span></div>
+        <div class="card"><em>02</em><b>精选文章标题：等你提供</b><span>阅读数据：只按你给的口径展示</span></div>
+        <div class="sect"><i></i>经历</div>
+        <div class="tl">
+          <div class="ti"><b>时间段 · 角色：待你口述</b><span>做了什么 · 结果如何：待你口述</span></div>
+          <div class="ti"><b>时间段 · 角色：待你口述</b><span>做了什么 · 结果如何：待你口述</span></div>
+        </div>
+        <div class="cta"><a class="big">关注「慢慢来的运营」</a><p>微信号 · 二维码：待你提供后放这里</p></div>
+      </div>
+    </div>
+    <div class="swatch-row">
+      <div class="sw"><i style="background:#F6F4FA"></i><span>雾白底<br>#F6F4FA</span></div>
+      <div class="sw"><i style="background:#7C5CBF"></i><span>紫主色<br>#7C5CBF</span></div>
+      <div class="sw"><i style="background:#ECE6F9"></i><span>淡紫底<br>#ECE6F9</span></div>
+      <div class="sw"><i style="background:#332B47"></i><span>深紫文字<br>#332B47</span></div>
+    </div>
+    <div class="explain"><h3>方案 B · 紫雾</h3><p>淡紫渐变 + 圆角卡片 + 克制弱化按钮，温和不突兀，延续你熟悉的紫色系审美。适合和已有视觉资产（公众号头图、日常露出形象）保持一致。</p></div>
+  </section>
+
+  <!-- ========== 方案 C ========== -->
+  <section class="scheme">
+    <div class="phone">
+      <span class="pbadge pb-c">版式示意 · 文案均为占位，最终以你确认的事实为准</span>
+      <div class="c">
+        <div class="hero">
+          <div class="chips"><span>社群运营</span><span>心理成长</span><span>公众号主理人</span></div>
+          <h2>慢慢来的运营</h2>
+          <p class="sub">小明的个人品牌页</p>
+          <div class="ph">一句话定位会放在这里——内容等你亲口告诉我，我不代写。</div>
+          <div class="btns"><a class="pri">关注公众号</a><a class="sec">加微信</a></div>
+        </div>
+        <div class="sect"><i></i>最近在写</div>
+        <div class="card"><em>01</em><b>精选文章标题：等你提供</b><span>阅读数据：只按你给的口径展示</span></div>
+        <div class="card"><em>02</em><b>精选文章标题：等你提供</b><span>阅读数据：只按你给的口径展示</span></div>
+        <div class="sect"><i></i>经历</div>
+        <div class="tl">
+          <div class="ti"><b>时间段 · 角色：待你口述</b><span>做了什么 · 结果如何：待你口述</span></div>
+          <div class="ti"><b>时间段 · 角色：待你口述</b><span>做了什么 · 结果如何：待你口述</span></div>
+        </div>
+        <div class="cta"><a class="big">关注「慢慢来的运营」</a><p>微信号 · 二维码：待你提供后放这里</p></div>
+      </div>
+    </div>
+    <div class="swatch-row">
+      <div class="sw"><i style="background:#FBFAF6"></i><span>纸白底<br>#FBFAF6</span></div>
+      <div class="sw"><i style="background:#17150F"></i><span>墨黑<br>#17150F</span></div>
+      <div class="sw"><i style="background:#2A5C4D"></i><span>墨绿点缀<br>#2A5C4D</span></div>
+      <div class="sw"><i style="background:#E3DFD0"></i><span>细线<br>#E3DFD0</span></div>
+    </div>
+    <div class="explain"><h3>方案 C · 编辑部</h3><p>纸感白底 + 墨黑衬线 + 墨绿点缀，直角、细线、杂志式双栏规则。气质：内容专业人，把注意力让给文章本身。适合想突出「内容作者」身份而非氛围。</p></div>
+  </section>
+
+  <div class="foot-box">
+    <h3>如何反馈</h3>
+    <ol>
+      <li>直接回复 <b>A / B / C</b>，也可以混搭——例如「A 的暖色 + C 的排版」。</li>
+      <li>可以附带细节调整：标题再大一点、按钮更圆、某个颜色再浅一点……都行。</li>
+      <li>定稿后流程：我做整页版式 → 你确认 → 再逐条填入你口述的事实。</li>
+    </ol>
+  </div>
+
+  <div class="foot-box">
+    <h3>页面结构预设（三个方案通用，欢迎增删）</h3>
+    <ol>
+      <li>首屏 · 你是谁：一句话定位 + 关注按钮</li>
+      <li>最近在写 · 公众号精选 3–5 篇</li>
+      <li>经历 · 时间线（只写你口述的事实）</li>
+      <li>数据 · 只用你提供的口径</li>
+      <li>他们怎么说 · 评价（每条需对方同意才能上站）</li>
+      <li>关注区 · 公众号 + 微信（行动按钮重复出现）</li>
+    </ol>
+    <p class="muted">涉及你以外的人或公司的内容，我会逐条打「⚠️ 需对方同意」标记，并汇总成授权确认清单，你逐条确认后才上线。</p>
+  </div>
+
+</div>
+<script>
+const tabs=document.querySelectorAll('.tab'),scs=document.querySelectorAll('.scheme');
+tabs.forEach((t,i)=>t.addEventListener('click',()=>{
+  tabs.forEach(x=>x.classList.remove('on'));
+  scs.forEach(x=>x.classList.remove('on'));
+  t.classList.add('on');scs[i].classList.add('on');
+  window.scrollTo({top:tabs[0].offsetTop-70,behavior:'smooth'});
+}));
+</script>
+</body>
+</html>
